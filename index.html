@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WinkPass Enterprise™ — Zero-Trust Ocular Biometrics</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;800&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+
+  <!-- Google MediaPipe Face Mesh & Camera Utils -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <!-- Cyber Scan Grid Background -->
+  <div class="cyber-grid"></div>
+  <div class="scanline"></div>
+
+  <header class="top-nav">
+    <div class="brand">
+      <div class="brand-icon">
+        <span class="eye-symbol">👁️‍🗨️</span>
+        <span class="pulse-ring"></span>
+      </div>
+      <div>
+        <h1>WINK<span class="highlight">PASS</span> <span class="badge">DEFENSE-GRADE v4.2</span></h1>
+        <p class="tagline">Over-Engineered Zero-Trust Ocular Authentication Protocol</p>
+      </div>
+    </div>
+    <div class="security-status">
+      <span class="status-indicator online"></span>
+      <span id="systemStatusText">CORE ONLINE // MIL-SPEC 256-BIT</span>
+    </div>
+  </header>
+
+  <main class="dashboard">
+    <!-- Left Column: Live Scanner HUD -->
+    <section class="scanner-card">
+      <div class="card-header">
+        <div class="header-title">
+          <span class="terminal-symbol">&gt;</span> LIVE OCULAR SENSOR FEED
+        </div>
+        <div class="hud-coords" id="fpsDisplay">FPS: -- | MESH: 468 PTS</div>
+      </div>
+
+      <div class="video-container">
+        <!-- Reticles and HUD Overlays -->
+        <div class="hud-corner top-left"></div>
+        <div class="hud-corner top-right"></div>
+        <div class="hud-corner bottom-left"></div>
+        <div class="hud-corner bottom-right"></div>
+        
+        <div class="scanner-sweep"></div>
+        
+        <!-- Hidden raw webcam element -->
+        <video id="webcam" playsinline muted></video>
+        <!-- Canvas where real-time face mesh & eye trackers are rendered -->
+        <canvas id="outputCanvas"></canvas>
+
+        <!-- Live Eye HUD Indicators -->
+        <div class="eye-hud-overlay">
+          <div class="eye-hud-box" id="leftEyeHud">
+            <span class="eye-label">LEFT EYE (OD)</span>
+            <div class="meter-bar"><div class="meter-fill" id="leftEarMeter"></div></div>
+            <span class="eye-val" id="leftEarVal">0.00 EAR</span>
+            <span class="eye-state-tag" id="leftEyeState">OPEN</span>
+          </div>
+
+          <div class="eye-hud-box" id="rightEyeHud">
+            <span class="eye-label">RIGHT EYE (OS)</span>
+            <div class="meter-bar"><div class="meter-fill" id="rightEarMeter"></div></div>
+            <span class="eye-val" id="rightEarVal">0.00 EAR</span>
+            <span class="eye-state-tag" id="rightEyeState">OPEN</span>
+          </div>
+        </div>
+
+        <!-- Camera Loading Message -->
+        <div class="camera-loader" id="cameraLoader">
+          <div class="spinner"></div>
+          <p>INITIALIZING AI FACE MESH MODEL...</p>
+          <span class="subtext">Please grant camera access when prompted by browser</span>
+        </div>
+      </div>
+
+      <!-- Real-time Controls / Calibration -->
+      <div class="scanner-footer">
+        <div class="slider-group">
+          <label for="thresholdSlider">
+            Wink EAR Threshold: <span id="thresholdVal">0.19</span>
+          </label>
+          <input type="range" id="thresholdSlider" min="0.10" max="0.30" step="0.01" value="0.19">
+        </div>
+        <div class="btn-group">
+          <button id="toggleMeshBtn" class="btn-secondary">FACEMESH: ON</button>
+          <button id="toggleAudioBtn" class="btn-secondary">AUDIO: ON</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right Column: Authentication Console -->
+    <section class="auth-card">
+      <!-- Tabs: Verify vs Enroll -->
+      <div class="tabs">
+        <button class="tab-btn active" id="tabAuth">AUTHENTICATE</button>
+        <button class="tab-btn" id="tabEnroll">ENROLL MASTER KEY</button>
+      </div>
+
+      <!-- Mode 1: Authentication Mode -->
+      <div class="tab-content" id="authModePanel">
+        <div class="panel-header">
+          <h3>SECURE BIOMETRIC ACCESS TERMINAL</h3>
+          <p>Perform your private ocular gesture sequence to unlock the vault.</p>
+        </div>
+
+        <!-- Preset Reference Info -->
+        <div class="preset-info-banner">
+          <div class="info-icon">ℹ️</div>
+          <div>
+            <strong>DEFAULT MASTER KEY SEQUENCE:</strong>
+            <div class="demo-key-pills">
+              <span class="key-pill">LEFT WINK</span>
+              <span class="key-pill">RIGHT WINK</span>
+              <span class="key-pill">LEFT WINK</span>
+              <span class="key-pill">BOTH WINK</span>
+            </div>
+            <small>Wink naturally into the camera, or switch to "ENROLL" tab to customize!</small>
+          </div>
+        </div>
+
+        <!-- Sequence Visualizer -->
+        <div class="sequence-box">
+          <div class="sequence-header">
+            <span>RECORDED OCULAR GESTURES</span>
+            <span id="tokenCount">0 / 4 INPUTS</span>
+          </div>
+          <div class="token-container" id="tokenContainer">
+            <span class="empty-prompt">Wink with your left or right eye to enter password...</span>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-row">
+          <button id="clearTokensBtn" class="btn-secondary">RESET INPUT</button>
+          <button id="verifyBtn" class="btn-primary">SUBMIT BIO-HASH</button>
+        </div>
+
+        <!-- Feedback & Verification State -->
+        <div class="result-banner" id="resultBanner">
+          <div class="result-icon" id="resultIcon">🔒</div>
+          <div class="result-text">
+            <h4 id="resultTitle">VAULT LOCKED</h4>
+            <p id="resultMsg">Awaiting encrypted sequence verification...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mode 2: Enrollment Mode -->
+      <div class="tab-content hidden" id="enrollModePanel">
+        <div class="panel-header">
+          <h3>ENROLL NEW MASTER OCULAR KEY</h3>
+          <p>Wink 3 to 6 times to record a new master password. It will be cryptographically salted and hashed.</p>
+        </div>
+
+        <div class="sequence-box">
+          <div class="sequence-header">
+            <span>NEW KEY SEQUENCE BUFFER</span>
+            <span id="enrollTokenCount">0 TOKENS</span>
+          </div>
+          <div class="token-container" id="enrollTokenContainer">
+            <span class="empty-prompt">Wink with your eyes to build your custom key...</span>
+          </div>
+        </div>
+
+        <div class="action-row">
+          <button id="clearEnrollBtn" class="btn-secondary">RESET BUFFER</button>
+          <button id="saveEnrollBtn" class="btn-accent">ENCRYPT & SAVE KEY</button>
+        </div>
+      </div>
+
+      <!-- Over-engineered Cryptographic Audit Terminal -->
+      <div class="terminal-card">
+        <div class="terminal-bar">
+          <span class="terminal-dot red"></span>
+          <span class="terminal-dot yellow"></span>
+          <span class="terminal-dot green"></span>
+          <span class="terminal-title">ENCRYPTED AUDIT LOG // ZERO-KNOWLEDGE STREAM</span>
+        </div>
+        <div class="terminal-logs" id="terminalLogs">
+          <div class="log-line text-muted">[SYS_INIT] Cryptographic entropy pool seeded.</div>
+          <div class="log-line text-muted">[AI_INIT] Initializing 468-point 3D Ocular Mesh Engine...</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>WinkPass Enterprise Edition &bull; <em>"Military-grade biometric encryption for something anyone can literally watch you do."</em></p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
