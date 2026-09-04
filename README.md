@@ -15,13 +15,13 @@
 
 
 ### Project Description
-In A Blink is a satirical yet fully functional biometric authentication system that replaces traditional passwords with a sequence of winks. Using AI powered facial landmark detection, it transforms your eye movements into a cryptographic key 
+In A Wink is a satirical yet fully functional biometric authentication system that replaces traditional passwords with a sequence of winks. Using AI powered facial landmark detection, it transforms your eye movements into a cryptographic key 
 
 ### The Problem (that doesn't exist)
-Passwords are too mainstream. Typing is for peasants. In a world where cyber threats lurk behind every pixel, we face the unbearable burden of uh memorizing 8 character strings. The real crisis? Hackers might watch you type your password, but can they watch you wink? (Yes. Yes they can. or can they? they might actually think you're winking at them)
+Passwords are too mainstream. Typing is for peasants. In a world where cyber threats lurk behind every pixel, we face the unbearable burden of uh memorizing 8 character strings. Hackers might watch you type your password, but can they watch you wink? (Yes. Yes they can. or can they? they might actually think you're winking at them😔)
 
 ### The Solution (that nobody asked for)
-Introducing the world's first ocular based zero trust authentication protocol! Because nothing says "military grade security" like blinking at your webcam while your colleagues question your life choices. 
+Introducing the world's first ocular based zero trust authentication protocol! Because nothing says "military grade security" like winking at your webcam.
 
 ## Technical Details
 ### Technologies/Components Used
