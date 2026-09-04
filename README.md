@@ -94,9 +94,6 @@ wink-password/
 https://github.com/user-attachments/assets/065151eb-f508-44eb-89af-93f48bff7b94
 password recogonition
 
-# Additional Demos
-[Add any extra demo materials/links]
-
 
 ## Team Contributions
 Haniya Ayisha P A: Full-Stack Developer—Built the Flask server, integrated MediaPipe, implemented EAR calculation logic.
