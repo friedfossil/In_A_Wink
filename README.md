@@ -2,7 +2,7 @@
 
 
 
-# [Project Name] 🎯
+# In A Blink
 
 
 ## Basic Details
@@ -11,87 +11,97 @@
 
 ### Team Members
 - Team Lead: Haniya Ayisha P A - Muthoot Institute of Technology and Science
-- Member 2: Freya Muneer - Muthoot Institute of Technology and Science
+- Member 2 : Freya Muneer      - Muthoot Institute of Technology and Science
 
 
 ### Project Description
-[2-3 lines about what your project does]
+In A Blink is a satirical yet fully functional biometric authentication system that replaces traditional passwords with a sequence of winks. Using AI powered facial landmark detection, it transforms your eye movements into a cryptographic key 
 
 ### The Problem (that doesn't exist)
-[What ridiculous problem are you solving?]
+Passwords are too mainstream. Typing is for peasants. In a world where cyber threats lurk behind every pixel, we face the unbearable burden of uh memorizing 8 character strings. The real crisis? Hackers might watch you type your password, but can they watch you wink? (Yes. Yes they can. or can they? they might actually think you're winking at them)
 
 ### The Solution (that nobody asked for)
-[How are you solving it? Keep it fun!]
+Introducing the world's first ocular based zero trust authentication protocol! Because nothing says "military grade security" like blinking at your webcam while your colleagues question your life choices. 
 
 ## Technical Details
 ### Technologies/Components Used
 For Software:
-- [Languages used]
-- [Frameworks used]
-- [Libraries used]
-- [Tools used]
+
+Languages: HTML5, CSS3, JavaScript (ES6), Python 3.9+
+
+Frameworks: Flask (Python web server)
+
+Libraries: Google MediaPipe Face Mesh AI, Web Audio API (for dramatic sound effects), Web Crypto API
+
+Tools: VS Code, Live Server extension, Chrome/Edge browser
 
 For Hardware:
-- [List main components]
-- [List specifications]
-- [List tools required]
+
+Webcam (720+ resolution)
+Your face 
+Your eyes 
 
 ### Implementation
 For Software:
 # Installation
-[commands]
+
+Clone the repository:
+git clone https://github.com/yourusername/wink-password.git
+
+Navigate to project directory:
+cd wink-password
+
+Install Python dependencies (for Flask server):
+pip install flask flask-cors
+
 
 # Run
-[commands]
+
+Option 1: Direct browser launch
+Open index.html in Chrome/Edge or use VS Code Live Server
+
+Option 2: Full-stack Flask server
+python server.py
+Navigate to http://127.0.0.1:5000 in your browser
+
 
 ### Project Documentation
 For Software:
 
-# Screenshots (Add at least 3)
-![Screenshot1](Add screenshot 1 here with proper name)
-*Add caption explaining what this shows*
+# Screenshots 
+<img width="959" height="438" alt="Screenshot 2026-09-04 094125" src="https://github.com/user-attachments/assets/718cd976-05d2-49fa-b943-6657e55cb67e" />
+dashboard
 
-![Screenshot2](Add screenshot 2 here with proper name)
-*Add caption explaining what this shows*
+<img width="959" height="437" alt="Screenshot 2026-09-04 094323" src="https://github.com/user-attachments/assets/a6c30e9f-0332-4baa-97f3-c4a12dbbce5e" />
+trying password 
 
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
+<img width="959" height="436" alt="Screenshot 2026-09-04 094615" src="https://github.com/user-attachments/assets/27468826-c8b3-4a08-9ee8-6e4148ea88ea" />
+setting password
 
 # Diagrams
-![Workflow](Add your workflow/architecture diagram here)
-*Add caption explaining your workflow*
+wink-password/
+├── index.html       # Futuristic Cyber HUD & Face Scanner Canvas
+├── style.css        # Neon glowing borders, scanlines, and telemetry styling
+├── app.js           # MediaPipe AI FaceMesh, EAR calculation, state machine & crypto
+├── server.py        # Optional Flask server with SHA-256 verification API
+├── README.md        # Documentation and guide
+└── .gitignore       # Git ignore rules
 
-For Hardware:
-
-# Schematic & Circuit
-![Circuit](Add your circuit diagram here)
-*Add caption explaining connections*
-
-![Schematic](Add your schematic diagram here)
-*Add caption explaining the schematic*
-
-# Build Photos
-![Components](Add photo of your components here)
-*List out all components shown*
-
-![Build](Add photos of build process here)
-*Explain the build steps*
-
-![Final](Add photo of final product here)
-*Explain the final build*
 
 ### Project Demo
 # Video
-[Add your demo video link here]
-*Explain what the video demonstrates*
+
+https://github.com/user-attachments/assets/065151eb-f508-44eb-89af-93f48bff7b94
+password recogonition
 
 # Additional Demos
 [Add any extra demo materials/links]
 
+
 ## Team Contributions
-- [Name 1]: [Specific contributions]
-- [Name 2]: [Specific contributions]
-- [Name 3]: [Specific contributions]
+Haniya Ayisha P A: Full-Stack Developer—Built the Flask server, integrated MediaPipe, implemented EAR calculation logic, and designed the gesture state machine.
+
+Freya Muneer: UI/UX Designer & Frontend Developer—Created the cyberpunk HUD, CSS animations, responsive design.
 
 ---
 Made with ❤️ at TinkerHub Useless Projects 
