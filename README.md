@@ -99,7 +99,7 @@ password recogonition
 
 
 ## Team Contributions
-Haniya Ayisha P A: Full-Stack Developer—Built the Flask server, integrated MediaPipe, implemented EAR calculation logic, and designed the gesture state machine.
+Haniya Ayisha P A: Full-Stack Developer—Built the Flask server, integrated MediaPipe, implemented EAR calculation logic.
 
 Freya Muneer: UI/UX Designer & Frontend Developer—Created the cyberpunk HUD, CSS animations, responsive design.
 
